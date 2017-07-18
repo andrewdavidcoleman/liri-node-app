@@ -33,42 +33,41 @@ if (process.argv[2] === "my-tweets") {
 
 // <<<<<<<<<<<<<<<Spotify>>>>>>>>>>>>>>>>>>
 if (process.argv[2] === "spotify-this-song") {
-	// global variables
-	var keys = require("./keys.js");
-	var spotify = require("node-spotify-api")
 
-	var client = new spotify({
-	  id: keys.spotifyKeys.id,
-	  secret: keys.spotifyKeys.secret
-	});
+		var keys = require("./keys.js");
+		var spotify = require("node-spotify-api")
 
-	// allowing for spaces in terminal input
-	var nodeArgs = process.argv;
-	var songTitle = "";
+		var client = new spotify({
+		  id: keys.spotifyKeys.id,
+		  secret: keys.spotifyKeys.secret
+		});
 
-	for (var i = 3; i < nodeArgs.length; i++) {
+		// allowing for spaces in terminal input
+		var nodeArgs = process.argv;
+		var songTitle = "";
 
-		if (i > 3 && i < nodeArgs.length) {
-		    songTitle = songTitle + "+" + nodeArgs[i];
-		  } else {
-		    songTitle += nodeArgs[i];
+		for (var i = 3; i < nodeArgs.length; i++) {
+
+			if (i > 3 && i < nodeArgs.length) {
+			    songTitle = songTitle + "+" + nodeArgs[i];
+			  } else {
+			    songTitle += nodeArgs[i];
+			  }
+		}
+
+		// the search
+		var query = { type: 'track', query: songTitle };
+
+		client.search(query, function(err, data) {
+		  if (err) {
+		    return console.log('Error occurred: ' + err);
 		  }
-	}
+			console.log(data.tracks.items[0].artists[0].name);
+			console.log(data.tracks.items[0].name);
+			console.log(data.tracks.items[0].preview_url);
+			console.log(data.tracks.items[0].album.name)
 
-	// the search
-	var query = { type: 'track', query: songTitle };
-
-	client.search(query, function(err, data) {
-	  if (err) {
-	    return console.log('Error occurred: ' + err);
-	  }
-		console.log(data.tracks.items[0].artists[0].name);
-		console.log(data.tracks.items[0].name);
-		console.log(data.tracks.items[0].preview_url);
-		console.log(data.tracks.items[0].album.name)
-
-	});
-
+		});
 }
 // <<<<<<<<<<<<<<<End Spotify>>>>>>>>>>>>>>>>>>
 
@@ -127,10 +126,60 @@ if (process.argv[2] === "movie-this") {
 
 
 
-// <<<<<<<<<<<<<<<Request>>>>>>>>>>>>>>>>>>
+// <<<<<<<<<<<<<<<Request>>>>>>>>>>>>>>>>>> NOT SURE WHY I CAN'T GET THIS ONE TO WORK
 if (process.argv[2] === "do-what-it-says") {
 
+	// this part reads the data from the random.txt file
+	var fs = require("fs");
 
+	fs.readFile("random.txt", "utf8", function(error, data) {
+
+	  if (error) {
+	    return console.log(error);
+	  }
+
+	  var dataArr = data.split(",");
+
+	  console.log("node liri.js " + dataArr[0] + " " + dataArr[1]);
+
+	  var randomText = { type: dataArr[0], query: dataArr[1] };
+
+	  // this part is just running the spotify command from above
+	  var keys = require("./keys.js");
+		var spotify = require("node-spotify-api")
+
+		var client = new spotify({
+		  id: keys.spotifyKeys.id,
+		  secret: keys.spotifyKeys.secret
+		});
+
+		var nodeArgs = process.argv;
+		var songTitle = "";
+
+		for (var i = 3; i < nodeArgs.length; i++) {
+
+			if (i > 3 && i < nodeArgs.length) {
+			    songTitle = songTitle + "+" + nodeArgs[i];
+			  } else {
+			    songTitle += nodeArgs[i];
+			  }
+		}
+
+
+		client.search(randomText, function(err, data) {
+		  if (err) {
+		    return console.log('Error occurred: ' + err);
+		  }
+			console.log(data.tracks.items[0].artists[0].name);
+			console.log(data.tracks.items[0].name);
+			console.log(data.tracks.items[0].preview_url);
+			console.log(data.tracks.items[0].album.name)
+
+		});
+
+
+
+	});
 	
 }
 // <<<<<<<<<<<<<<<End Request>>>>>>>>>>>>>>>>>>

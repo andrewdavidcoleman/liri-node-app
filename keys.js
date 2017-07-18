@@ -7,10 +7,6 @@ exports.twitterKeys = {
   access_token_secret: 'D90ylFToZjZ9jMO7amESeq2ZIOoEt4ht65WKM9hSbaSbl',
 }
 
-// spotify
-// client id 901ed951e036475f8817ca8daa7e17b6
-// client secret e7c29333d70b44f6aa874c6b94b748e7
-
 exports.spotifyKeys = {
    id: '901ed951e036475f8817ca8daa7e17b6',
    secret: 'e7c29333d70b44f6aa874c6b94b748e7'
