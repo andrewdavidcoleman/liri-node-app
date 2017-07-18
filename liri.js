@@ -15,13 +15,20 @@ if (process.argv[2] === "my-tweets") {
 	var handle = {screen_name: 'andrewsLiri'};
 
 	client.get('statuses/user_timeline/', handle, function(error, tweets, response) {
-	  if (!error) {
-	  	// still need to find specific information!
-	    console.log(tweets);
+		if (!error) {
 
-	  }
+			for (var i = 0; i < tweets.length; i++) {
+
+			console.log(tweets[i].text);
+
+			}
+		}
 	});
 }
+// <<<<<<<<<<<<<<<End Twitter>>>>>>>>>>>>>>>>>>
+
+
+
 
 
 // <<<<<<<<<<<<<<<Spotify>>>>>>>>>>>>>>>>>>
@@ -63,6 +70,10 @@ if (process.argv[2] === "spotify-this-song") {
 	});
 
 }
+// <<<<<<<<<<<<<<<End Spotify>>>>>>>>>>>>>>>>>>
+
+
+
 
 
 
@@ -70,9 +81,50 @@ if (process.argv[2] === "spotify-this-song") {
 // <<<<<<<<<<<<<<<OMDB>>>>>>>>>>>>>>>>>>
 if (process.argv[2] === "movie-this") {
 
+	var request = require("request");
+	var nodeArgs = process.argv;
+
+	var movieName = "";
+
+	for (var i = 3; i < nodeArgs.length; i++) {
+
+	  if (i > 3 && i < nodeArgs.length) {
+
+	    movieName = movieName + "+" + nodeArgs[i];
+
+	  }
+
+	  else {
+
+	    movieName += nodeArgs[i];
+
+	  }
+	}
+
+	var queryUrl = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=40e9cece";
+
+	request(queryUrl, function(error, response, body) {
+
+	  if (!error && response.statusCode === 200) {
+
+	    console.log("Title: " + JSON.parse(body).Title);
+	    console.log("Release year: " + JSON.parse(body).Year);
+	    console.log("IMDB rating: " + JSON.parse(body).imdbRating);
+	    console.log("Rotten Tomatoes rating: " + JSON.parse(body).Ratings[1].Value);
+	    console.log("Title: " + JSON.parse(body).Language);
+	    console.log("Title: " + JSON.parse(body).Plot);
+	    console.log("Title: " + JSON.parse(body).Actors);
+	  }
+	});
 
 	
 }
+// <<<<<<<<<<<<<<<End OMDB>>>>>>>>>>>>>>>>>>
+
+
+
+
+
 
 
 // <<<<<<<<<<<<<<<Request>>>>>>>>>>>>>>>>>>
@@ -81,3 +133,4 @@ if (process.argv[2] === "do-what-it-says") {
 
 	
 }
+// <<<<<<<<<<<<<<<End Request>>>>>>>>>>>>>>>>>>
