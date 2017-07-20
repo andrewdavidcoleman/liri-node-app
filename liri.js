@@ -11,7 +11,7 @@ if (process.argv[2] === "my-tweets") {
 	  access_token_key: keys.twitterKeys.access_token_key,
 	  access_token_secret: keys.twitterKeys.access_token_secret
 	});
-	 
+
 	var handle = {screen_name: 'andrewsLiri'};
 
 	client.get('statuses/user_timeline/', handle, function(error, tweets, response) {
@@ -116,7 +116,7 @@ if (process.argv[2] === "movie-this") {
 	  }
 	});
 
-	
+
 }
 // <<<<<<<<<<<<<<<End OMDB>>>>>>>>>>>>>>>>>>
 
@@ -126,7 +126,7 @@ if (process.argv[2] === "movie-this") {
 
 
 
-// <<<<<<<<<<<<<<<Request>>>>>>>>>>>>>>>>>> NOT SURE WHY I CAN'T GET THIS ONE TO WORK
+// <<<<<<<<<<<<<<<Request>>>>>>>>>>>>>>>>>>
 if (process.argv[2] === "do-what-it-says") {
 
 	// this part reads the data from the random.txt file
@@ -142,9 +142,9 @@ if (process.argv[2] === "do-what-it-says") {
 
 	  console.log("node liri.js " + dataArr[0] + " " + dataArr[1]);
 
-	  var randomText = { type: dataArr[0], query: dataArr[1] };
+	  var randomText = { type: "track", query: dataArr[1] };
 
-	  // this part is just running the spotify command from above
+	  // this part is just copied from the spotify command from above
 	  var keys = require("./keys.js");
 		var spotify = require("node-spotify-api")
 
@@ -180,6 +180,6 @@ if (process.argv[2] === "do-what-it-says") {
 
 
 	});
-	
+
 }
 // <<<<<<<<<<<<<<<End Request>>>>>>>>>>>>>>>>>>
